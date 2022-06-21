@@ -8,32 +8,39 @@ docker network create --driver bridge <=name-network>
 
 docker network list
 
-# -d modo deamon (segundo plano/background)
+# Algumas tags
 
-# -e variavel de ambiente
+- -d modo deamon (segundo plano/background)
 
-# -v volume
+- -e variavel de ambiente
 
-# -p porta 27018 (host) : 27017 (container)
+- -v volume
+
+- -p porta 27018 (host) : 27017 (container)
 
 # Criar volume
 
--v <=nameVolumeInHost>:<=diretorioInContainer>:<=leiturEscrita(ro/rw)>
--v mysql-db:/var/lib/mysql:ro
+-v <=PathVolumeHost>:<=pathContainer>:ro/rw
+
+# exemplo
+- -v mysql-db:/var/lib/mysql:ro
+
+- -v volume-data:volume-container (criar as pastas antes)
+
 --mount 'type=volume,source=mysql-db,target=/var/lib/mysql,readonly'
 
-#docker volume create mysql-db
-#docker volume ls
-#docker volume inspect mysql-db
-#docker container run -d --name mysql-db -v mysql-db:/var/lib/mysql -e MYSQL_PASSWORD=password mysql
+- docker volume create mysql-db
+- docker volume ls
+- docker volume inspect mysql-db
+- docker container run -d --name mysql-db -v mysql-db:/var/lib/mysql -e MYSQL_PASSWORD=password mysql
 
 # Criar container background com porta exposta volume nome e rede ====#
 
-docker container run -d -p <=portaHost>:<=portaContainer> -v $HOME/db:/data/db --name=<=name-container> --network=<=name-network> <=image>
+- docker container run -d -p <=portaHost>:<=portaContainer> -v $HOME/db:/data/db --name=<=name-container> --network=<=name-network> <=image>
 
 # Criar container background com nome e rede ====#
 
-docker container run -d --name=<=name-container> --network=<=name-network> <=image>
+- docker container run -d --name=<=name-container> --network=<=name-network> <=image>
 
 # Criar um container com porta exposta
 
@@ -45,7 +52,7 @@ docker network create <=name-network> --subnet 192.168.134.0/24 --gateway 192.16
 
 # Inspecionar rede container
 
-docker network inspect <=name-network>
+- docker network inspect <=name-network>
 
 # Construindo uma imagem
 
