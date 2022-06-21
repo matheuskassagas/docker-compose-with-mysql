@@ -1,0 +1,57 @@
+version: '3'                #definicao da versao
+volumes:
+      mysql-db:             #volumeHost : volumeContainer
+networks:
+      backend:              #nomeRede
+services:                   #imagensContainers
+  mysql:                    #nome
+    image: mysql            #imagem
+    volumes:
+      - mysql-db:/var/lib/mysql  
+      - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d    #mapear o volume para o script init.sql path/comando
+    networks:
+      - backend             #atribui o container a rede backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=numsey
+      - bind-address=0.0.0.0
+
+
+#==================# Build docker compose instrucoes #==================#
+
+#==========# Verificar a sintaxe #==========#
+#docker-compose build 
+
+#==========# Fazer um teste #==========#
+#docker-compose up -d
+
+#==========# Desfazer a operacao #==========#
+#docker-compose down -v
+
+#==========# Ver logs p verificar se houve erro #==========#
+#docker-compose logs 
+
+
+#==========# Acessar container #==========#
+#docker container exec -it <nameContainer> /bin/bash
+
+#==========# longin no mysql dentro do container #==========#
+#mysql -u root -p 
+#senha numsey
+#show databases;
+#use Alunosdb;
+#select * from Alunosdb;
+
+
+#==========# Informacoes docker-compose #==========#
+
+#build - indica o inicio da secao build que diz ao docker como criar a img para o container deste servico
+
+# context - define o diretorio do contexto que sera usado para criar a imagem. Usa o diretorio atual (" . ");
+
+#dockerfile - especifica o arquivo 
+
+#ports - define o mapeamento de portas 
+
+#DBHOST - define o nome do host 
+
+#depends_on - diz ao docler a ordem na qual os containeres serao criados 
