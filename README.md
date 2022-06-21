@@ -27,7 +27,7 @@ docker network list
 
 - -v volume-data:volume-container (criar as pastas antes)
 
---mount 'type=volume,source=mysql-db,target=/var/lib/mysql,readonly'
+- --mount 'type=volume,source=mysql-db,target=/var/lib/mysql,readonly'
 
 - docker volume create mysql-db
 - docker volume ls
@@ -44,11 +44,11 @@ docker network list
 
 # Criar um container com porta exposta
 
-docker container run -p 8080:80 nginx
+- docker container run -p 8080:80 nginx
 
 # Criar uma rede com subnet e gateway
 
-docker network create <=name-network> --subnet 192.168.134.0/24 --gateway 192.168.134.1
+- docker network create <=name-network> --subnet 192.168.134.0/24 --gateway 192.168.134.1
 
 # Inspecionar rede container
 
@@ -56,27 +56,21 @@ docker network create <=name-network> --subnet 192.168.134.0/24 --gateway 192.16
 
 # Construindo uma imagem
 
-#docker build -t matheusgigliotti/img:1.0 .
-
+- docker build -t matheusgigliotti/img:1.0 .
 - docker build -> comando que constroi a imagem
 - -t -> Usado para informar que a imagem pertence ao meu usuario
 - matheusgigliotti/img:1.0 -> o nome da imagem e a tag atribuida a imagem
 - . -> significa o diretorio atual (pois dei o build dentro da pasta do Dockerfile)
 
-#imagem building
 
-#test
+- docker container run -d -p 8080:80 --name=ws1 matheusgigliotti/img:1.0
 
-#create a container
+- docker container ps
 
-#docker container run -d -p 8080:80 --name=ws1 matheusgigliotti/img:1.0
+#testing no navegador localhost:porta
 
-#docker container ps
-
-#localhost:8080
-
-#docker login
-#docker push <=nomeimagem>
+- docker login
+- docker push <=nomeimagem>
 
 # Build docker compose instrucoes
 
@@ -108,6 +102,8 @@ docker network create <=name-network> --subnet 192.168.134.0/24 --gateway 192.16
 - DBHOST - define o nome do host
 
 - depends_on - diz ao docler a ordem na qual os containeres serao criados
+
+#Algumas tags dockerfile
 
 - FROM - O primeiro argumento do Dockerfile deve ser sempre o FROM, seguido da imagem e versão que será utilizada. Caso não seja informada a versão,
   o Docker vai procurar a mais atual do seu repositório oficial.
